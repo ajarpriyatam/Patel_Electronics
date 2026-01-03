@@ -1,0 +1,155 @@
+import {
+    CREATE_ORDER_REQUEST,
+    CREATE_ORDER_SUCCESS,
+    CREATE_ORDER_FAIL,
+    MY_ORDERS_REQUEST,
+    MY_ORDERS_SUCCESS,
+    MY_ORDERS_FAIL,
+    ALL_ORDERS_REQUEST,
+    ALL_ORDERS_SUCCESS,
+    ALL_ORDERS_FAIL,
+    ORDER_DETAILS_REQUEST,
+    ORDER_DETAILS_SUCCESS,
+    ORDER_DETAILS_FAIL,
+    CLEAR_ERRORS,
+  PAYMENT_VERIFICATION_REQUEST,
+  PAYMENT_VERIFICATION_SUCCESS,
+  PAYMENT_VERIFICATION_FAIL,
+  } from "../constant/orderConstant";
+  
+  export const newOrderReducer = (state = {}, action) => {
+    switch (action.type) {
+      case CREATE_ORDER_REQUEST:
+        return {
+          ...state,
+          loading: true,
+        };
+  
+      case CREATE_ORDER_SUCCESS:
+        return {
+          loading: false,
+          order: action.payload,
+        };
+  
+      case CREATE_ORDER_FAIL:
+        return {
+          loading: false,
+          error: action.payload,
+        };
+      case CLEAR_ERRORS:
+        return {
+          ...state,
+          error: null,
+        };
+  
+      default:
+        return state;
+    }
+  };
+  
+  export const myOrdersReducer = (state = { orders: [] }, action) => {
+    switch (action.type) {
+      case MY_ORDERS_REQUEST:
+        return {
+          loading: true,
+        };
+  
+      case MY_ORDERS_SUCCESS:
+        return {
+          loading: false,
+          orders: action.payload,
+        };
+  
+      case MY_ORDERS_FAIL:
+        return {
+          loading: false,
+          error: action.payload,
+        };
+      case CLEAR_ERRORS:
+        return {
+          ...state,
+          error: null,
+        };
+  
+      default:
+        return state;
+    }
+  };
+  
+  export const allOrdersReducer = (state = { orders: [] }, action) => {
+    switch (action.type) {
+      case ALL_ORDERS_REQUEST:
+        return {
+          loading: true,
+        };
+  
+      case ALL_ORDERS_SUCCESS:
+        return {
+          loading: false,
+          orders: action.payload,
+        };
+  
+      case ALL_ORDERS_FAIL:
+        return {
+          loading: false,
+          error: action.payload,
+        };
+      case CLEAR_ERRORS:
+        return {
+          ...state,
+          error: null,
+        };
+  
+      default:
+        return state;
+    }
+  };
+  export const orderDetailsReducer = (state = { order: {} }, action) => {
+    switch (action.type) {
+      case ORDER_DETAILS_REQUEST:
+        return {
+          loading: true,
+        };
+  
+      case ORDER_DETAILS_SUCCESS:
+        return {
+          loading: false,
+          color: action.payload.color,
+          totalPrice:action.payload.totalPrice,
+          orderId:action.payload._id,
+          size:action.payload.size,
+          itemPrice:action.payload.itemPrice,
+          itemOrder:action.payload.orderItems,
+          quantity:action.payload.quantity,
+          orderTime:action.payload.createdAt,
+          orderStatus:action.payload.orderStatus,
+        };
+      case ORDER_DETAILS_FAIL:
+        return {
+          loading: false,
+          error: action.payload,
+        };
+      case CLEAR_ERRORS:
+        return {
+          ...state,
+          error: null,
+        };
+      default:
+        return state;
+    }
+  };
+
+export const paymentVerificationReducer = (state = { verified: false }, action) => {
+  switch (action.type) {
+    case PAYMENT_VERIFICATION_REQUEST:
+      return { loading: true };
+    case PAYMENT_VERIFICATION_SUCCESS:
+      return { loading: false, verified: true, data: action.payload };
+    case PAYMENT_VERIFICATION_FAIL:
+      return { loading: false, verified: false, error: action.payload };
+    case CLEAR_ERRORS:
+      return { ...state, error: null };
+    default:
+      return state;
+  }
+};

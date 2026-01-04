@@ -975,3 +975,22 @@ export const SAMPLE_PRODUCTS = [
         flag: "🇨🇳"
     }
 ];
+
+export const RICH_SAMPLE_PRODUCT = {
+    _id: "sample_rich_001",
+    name: "Mellanox MFS1S50-V020E Compatible 200G QSFP56 Active Optical Cable",
+    price: 52060,
+    originalPrice: 65000,
+    description: "Experience lightning-fast data transmission with the Mellanox MFS1S50-V020E Compatible 200G QSFP56 Active Optical Cable.\n\nKey Features:\n• High Data Rate: Support for 200Gb/s transfer speeds.\n• Reliable Connectivity: Designed for high-performance computing environments.\n• Active Optical Technology: Ensures signal integrity over longer distances compared to copper cables.\n• Hot-Pluggable: Easy installation and removal without powering down devices.\n\nIdeal for data centers, enterprise networking, and high-frequency trading platforms where speed and reliability are paramount.",
+    productImageGallery: [
+        { url: "https://shoptheworld.in/images/product/fs-for-20m-66ft-mellanox-mfs1s50-v020e-compatible-200g-qsfp56-to-2x100g-qsfp56-breakout-active-optical-cable.jpg" },
+        { url: "https://images.unsplash.com/photo-1544197150-b99a580bbcbf?q=80&w=1000&auto=format&fit=crop" },
+        { url: "https://images.unsplash.com/photo-1558346490-a72e53ae2d4f?q=80&w=1000&auto=format&fit=crop" },
+        { url: "https://images.unsplash.com/photo-1551703606-2c5e7b231ff6?q=80&w=1000&auto=format&fit=crop" }
+    ],
+    ratings: 4.5,
+    Stock: 10,
+    category: "Networking",
+    scent: ["Standard", "Premium Shielding"],
+    flag: "🇺🇸"
+};

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Layout from "../layouts/Layout";
-import ProductCard from "../component/common/ProductCard";
+import ProductCardColl from "../component/common/ProductCardColl";
 import { useSelector, useDispatch } from "react-redux";
 import { getProduct } from "../actions/productAction";
 import { getCategoryContent, normalizeCategory } from "../constants/categories";
@@ -13,7 +13,7 @@ const Products = () => {
   const [selectedCategory, setSelectedCategory] = useState("all");
 
   // Filter products based on selected category
-  console.log("azsxdcd selectedCategory",selectedCategory);
+  console.log("azsxdcd selectedCategory", selectedCategory);
   const currentCategoryContent = getCategoryContent(category);
 
   useEffect(() => {
@@ -35,7 +35,7 @@ const Products = () => {
     <Layout>
       {/* Hero Image Section - 40% of screen height */}
       <div className="relative h-[40vh] w-full overflow-hidden">
-        <img 
+        <img
           src={currentCategoryContent.image}
           alt={`Kavéra ${currentCategoryContent.title}`}
           className="w-full h-full object-cover"
@@ -62,11 +62,11 @@ const Products = () => {
             <div className="flex justify-center items-center py-20">
               <div className="text-[#BC2727] text-lg">Error: {error}</div>
             </div>
-          ) :  products &&  products.length > 0 ? (
+          ) : products && products.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              { products.map((product, index) => {
+              {products.map((product, index) => {
                 console.log("Product data for ProductCard:", product);
-                return <ProductCard key={product._id || index} {...product} />
+                return <ProductCardColl key={product._id || index} {...product} />
               })}
             </div>
           ) : (

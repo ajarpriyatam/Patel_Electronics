@@ -3,9 +3,11 @@ import Logo from "../component/common/Logo";
 import { Drawer, ThemeProvider, createTheme } from "@mui/material";
 import DrawerList from "./DrawerList";
 import { HiOutlineBars2 } from "react-icons/hi2";
-import { FaShoppingCart } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { FaShoppingCart, FaSearch } from "react-icons/fa";
+import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "../context/cart";
+import useCategory from "../hooks/useCategory";
+import { CATEGORY_CONFIG } from "../constants/categories";
 
 const theme = createTheme();
 
@@ -13,7 +15,11 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeNavItem, setActiveNavItem] = useState("");
   const [isScrolled, setIsScrolled] = useState(false);
+  const navigate = useNavigate();
+  const [showSearch, setShowSearch] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
   const [, , cartContext] = useCart();
+  const categories = useCategory();
   const { cart } = cartContext;
 
   const cartItemsCount = cart.reduce((total, item) => total + item.quantity, 0);
@@ -72,7 +78,7 @@ const Navbar = () => {
         </div>
 
         {/* Mobile/Tablet: Logo in Center */}
-        <div className="lg:hidden absolute left-1/2 transform -translate-x-1/2">
+        <div className={`lg:hidden absolute left-1/2 transform -translate-x-1/2 ${showSearch ? 'hidden' : ''}`}>
           <Logo />
         </div>
 
@@ -94,21 +100,48 @@ const Navbar = () => {
                 Home
               </span>
             </Link>
-            <Link
-              className="flex items-center cursor-pointer group"
-              to='/all/collections'
-            >
-              <span
-                className={`text-[18px] font-medium leading-[22.5px] transition-colors duration-300 ${activeNavItem === '/all/collections'
-                  ? "text-[#D4A574]"
-                  : isScrolled
-                    ? "text-gray-700 group-hover:text-[#D4A574]"
-                    : "text-gray-600 group-hover:text-[#D4A574]"
-                  }`}
+            {/* Collections Dropdown */}
+            <div className="relative group flex items-center h-full">
+              <Link
+                className="flex items-center cursor-pointer"
+                to='/all/collection'
               >
-                Collections
-              </span>
-            </Link>
+                <span
+                  className={`text-[18px] font-medium leading-[22.5px] transition-colors duration-300 ${activeNavItem === '/all/collections'
+                    ? "text-[#D4A574]"
+                    : isScrolled
+                      ? "text-gray-700 group-hover:text-[#D4A574]"
+                      : "text-gray-600 group-hover:text-[#D4A574]"
+                    }`}
+                >
+                  Collections
+                </span>
+              </Link>
+
+              {/* Dropdown Menu */}
+              <div className="absolute top-[80%] left-1/2 transform -translate-x-1/2 hidden group-hover:block w-[220px] pt-4 z-[999]">
+                <div className="bg-white shadow-[0_10px_40px_-10px_rgba(0,0,0,0.1)] rounded-xl border border-gray-100 overflow-hidden py-2 animate-in fade-in slide-in-from-top-2">
+                  <div className="flex flex-col">
+                    {categories.map((category) => {
+                      const categorySlug = typeof category === 'string' ? category : category.slug;
+                      const displayLabel = CATEGORY_CONFIG[categorySlug]?.title || categorySlug.charAt(0).toUpperCase() + categorySlug.slice(1).replace(/_/g, " ");
+
+                      if (categorySlug === 'all') return null; // Skip 'all' as it's the main link
+
+                      return (
+                        <Link
+                          key={categorySlug}
+                          to={`/${categorySlug}/collection`}
+                          className="px-5 py-3 text-sm font-medium text-gray-600 hover:text-[#D4A574] hover:bg-[#FDF9F5] transition-colors text-left flex items-center justify-between group/item"
+                        >
+                          {displayLabel}
+                        </Link>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+            </div>
             <Link
               className="flex items-center cursor-pointer group"
               to='/new-arrival'
@@ -126,24 +159,61 @@ const Navbar = () => {
             </Link>
             <Link
               className="flex items-center cursor-pointer group"
-              to='/sale'
+              to='/aboutus'
             >
               <span
-                className={`text-[18px] font-medium leading-[22.5px] transition-colors duration-300 ${activeNavItem === '/sale'
+                className={`text-[18px] font-medium leading-[22.5px] transition-colors duration-300 ${activeNavItem === '/aboutus'
                   ? "text-[#D4A574]"
                   : isScrolled
                     ? "text-gray-700 group-hover:text-[#D4A574]"
                     : "text-gray-600 group-hover:text-[#D4A574]"
                   }`}
               >
-                Sale
+                About Us
               </span>
             </Link>
           </ul>
         </div>
 
-        {/* Cart Button on Right (All Screens) */}
-        <div className="flex flex-row gap-5">
+        {/* Search and Cart Button on Right (All Screens) */}
+        <div className="flex flex-row gap-5 items-center">
+          {/* Search Bar */}
+          <div className="flex items-center relative">
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                if (searchQuery.trim()) {
+                  navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
+                  setShowSearch(false);
+                  setSearchQuery("");
+                }
+              }}
+              className={`flex items-center transition-all duration-300 ${showSearch ? 'w-[140px] sm:w-[200px] opacity-100 mr-2' : 'w-0 opacity-0 overflow-hidden'}`}
+            >
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search..."
+                className="w-full bg-transparent border-b border-gray-600 focus:border-[#D4A574] text-gray-700 placeholder-gray-500 focus:outline-none text-sm pb-1"
+                autoFocus={showSearch}
+              />
+            </form>
+            <button
+              onClick={() => {
+                if (showSearch && searchQuery.trim()) {
+                  navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
+                  setShowSearch(false);
+                  setSearchQuery("");
+                } else {
+                  setShowSearch(!showSearch);
+                }
+              }}
+              className="p-1 text-gray-700 hover:text-[#D4A574] transition-colors duration-300"
+            >
+              <FaSearch className="h-5 w-5" />
+            </button>
+          </div>
           <Link to={"/cart"} className="relative p-1 text-gray-700 hover:text-[#D4A574] transition-colors duration-300">
             <FaShoppingCart className="h-6 w-6" />
             {cartItemsCount > 0 && (
@@ -166,7 +236,7 @@ const Navbar = () => {
           }
         }}
       >
-        <DrawerList activeNavItem={activeNavItem} />
+        <DrawerList activeNavItem={activeNavItem} onClose={toggleDrawer(false)} />
       </Drawer>
     </ThemeProvider>
   );

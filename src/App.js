@@ -15,7 +15,8 @@ import PageNotFound from "./pages/PageNotFound";
 import Orders from "./pages/user/Order";
 import Profile from "./pages/user/Profile";
 import NewArrivals from "./pages/NewArrivals";
-import DiwaliSale from "./pages/DiwaliSale";
+import AboutUs from "./pages/AboutUs";
+import SearchPage from "./pages/SearchPage";
 import FAQ from "./pages/FAQ";
 import ReturnPolicy from "./pages/ReturnPolicy";
 import ShippingPolicy from "./pages/ShippingPolicy";
@@ -34,7 +35,8 @@ const App = () => {
       <Route path="/orders/tracking" element={<TrackOrder />} />
       <Route path="/account" element={<LoginSignUp />} />
       <Route path="/new-arrival" element={<NewArrivals />} />
-      <Route path="/sale" element={<DiwaliSale />} />
+      <Route path="/aboutus" element={<AboutUs />} />
+      <Route path="/search" element={<SearchPage />} />
       <Route path="/faq" element={<FAQ />} />
       <Route path="/returns" element={<ReturnPolicy />} />
       <Route path="/shipping" element={<ShippingPolicy />} />

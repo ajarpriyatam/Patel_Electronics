@@ -2,20 +2,24 @@ import React from "react";
 import Layout from "../layouts/Layout";
 import { Link } from "react-router-dom";
 import { FaTruck, FaHeadset, FaShieldAlt, FaUndo } from "react-icons/fa";
+import videoBg from "../assets/videos/3130284-uhd_3840_2160_30fps.mp4";
 
 const AboutUs = () => {
     return (
         <Layout>
             {/* Hero Section */}
             <div className="relative h-[60vh] w-full overflow-hidden">
-                <img
-                    src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2069&auto=format&fit=crop"
-                    alt="About Patel Electronics"
+                <video
                     className="w-full h-full object-cover"
+                    src={videoBg}
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
                 />
                 <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
                     <div className="text-center text-white max-w-4xl mx-auto px-6">
-                        <h1 className="text-5xl md:text-6xl font-serif font-bold mb-6">
+                        <h1 className="text-5xl md:text-6xl font-serif font-bold mb-6" style={{ color: "white" }}>
                             Empowering Your Digital Lifestyle
                         </h1>
                         <p className="text-xl md:text-2xl mb-8 opacity-90 max-w-2xl mx-auto">

@@ -1,13 +1,18 @@
 import React, { useState, useEffect, useRef } from "react";
-import { SAMPLE_PRODUCTS } from "../../data/sampleProducts";
 import ProductCard from "../common/ProductCard";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import { getProduct, getShowcaseProducts } from "../../actions/productAction";
+import { useSelector, useDispatch } from "react-redux";
 
 const CategoryShowcase = ({ title, category, flag }) => {
-    const [products, setProducts] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const dispatch = useDispatch();
     const [isPaused, setIsPaused] = useState(false);
     const scrollContainerRef = useRef(null);
+
+    // Local state for products to avoid global store race conditions
+    const [products, setProducts] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     const scrollLeft = () => {
         if (scrollContainerRef.current) {
@@ -45,36 +50,31 @@ const CategoryShowcase = ({ title, category, flag }) => {
         return () => clearInterval(intervalId);
     }, [isPaused, loading, products.length]);
 
+
     useEffect(() => {
         const fetchProducts = async () => {
+            setLoading(true);
             try {
-                // Simulate API delay
-                await new Promise(resolve => setTimeout(resolve, 500));
-
-                let filteredProducts = [];
-                if (category === "all") {
-                    filteredProducts = SAMPLE_PRODUCTS;
+                // Use the action directly but don't dispatch to store
+                const result = await dispatch(getShowcaseProducts(category));
+                if (result.success) {
+                    setProducts(result.products || []);
                 } else {
-                    // Filter locally based on category
-                    // Case-insensitive comparison
-                    filteredProducts = SAMPLE_PRODUCTS.filter(p =>
-                        p.category.toLowerCase() === category.toLowerCase()
-                    );
+                    setError(result.error);
                 }
-
-                setProducts(filteredProducts);
-                setLoading(false);
-            } catch (error) {
-                console.error("Error fetching category products:", error);
+            } catch (err) {
+                setError(err.message);
+            } finally {
                 setLoading(false);
             }
         };
 
         fetchProducts();
-    }, [category]);
+    }, [dispatch, category]);
 
     if (loading) return null; // Or a skeleton loader
     if (products.length === 0) return null;
+    console.log("CategoryShowcase products:", products);
 
     return (
         <section className="w-full py-5 px-[5%] bg-white">

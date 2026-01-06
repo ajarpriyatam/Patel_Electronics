@@ -27,7 +27,7 @@ const Profile = () => {
     e.preventDefault();
     try {
       const { data } = await axios.put(
-        `${process.env.REACT_APP_API}/api/v2/auth/profile`,
+        `${process.env.REACT_APP_API}/api/v5/auth/profile`,
         { name, email, password, phone, address }
       );
       if (data?.error) {

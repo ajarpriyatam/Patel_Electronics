@@ -1,14 +1,23 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import ProductCard from "../common/ProductCard";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
-import { SAMPLE_PRODUCTS } from "../../data/sampleProducts";
+import { useDispatch, useSelector } from "react-redux";
+import { getNewArrivals, getTopProducts } from "../../actions/productAction";
 
 const Recommendation = () => {
   const scrollContainerRef = useRef(null);
   const [selectedCategory, setSelectedCategory] = useState("NEW ARRIVALS");
+  const dispatch = useDispatch();
 
-  // Use sample products instead of Redux
-  const products = SAMPLE_PRODUCTS;
+  const { newArrivals } = useSelector((state) => state.newArrivals);
+  const { topProducts } = useSelector((state) => state.topProducts);
+
+  useEffect(() => {
+    dispatch(getNewArrivals());
+    dispatch(getTopProducts());
+  }, [dispatch]);
+
+  const products = selectedCategory === "NEW ARRIVALS" ? newArrivals : topProducts;
 
   const scrollLeft = () => {
     if (scrollContainerRef.current) {
@@ -40,8 +49,8 @@ const Recommendation = () => {
               <button
                 onClick={() => setSelectedCategory("NEW ARRIVALS")}
                 className={`px - 4 py - 2 text - sm font - medium transition - all duration - 300 ${selectedCategory === "NEW ARRIVALS"
-                    ? "bg-gray-100 text-gray-900"
-                    : "text-gray-600 hover:text-gray-900"
+                  ? "bg-gray-100 text-gray-900"
+                  : "text-gray-600 hover:text-gray-900"
                   } `}
               >
                 NEW ARRIVALS
@@ -49,8 +58,8 @@ const Recommendation = () => {
               <button
                 onClick={() => setSelectedCategory("BEST SELLERS")}
                 className={`px - 4 py - 2 text - sm font - medium transition - all duration - 300 ${selectedCategory === "BEST SELLERS"
-                    ? "bg-gray-100 text-gray-900"
-                    : "text-gray-600 hover:text-gray-900"
+                  ? "bg-gray-100 text-gray-900"
+                  : "text-gray-600 hover:text-gray-900"
                   } `}
               >
                 BEST SELLERS
@@ -88,7 +97,7 @@ const Recommendation = () => {
             className="overflow-x-auto hide-scrollbar px-12"
           >
             <div className="flex gap-6 pb-4">
-              {products.map((product, index) => (
+              {products && products.map((product, index) => (
                 <div
                   key={index}
                   className="flex-none w-[280px]"

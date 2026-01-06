@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Layout from "../layouts/Layout";
 import MainSection from "../component/MainSection";
 import ElectronicsCollections from "../component/collections/ElectronicsCollections";
@@ -9,18 +9,30 @@ import CategoryShowcase from "../component/home/CategoryShowcase";
 import BentoGrid from "../component/home/BentoGrid";
 import { CATEGORIES } from "../constants/categories";
 import DynamicProductShowcase from "../component/home/DynamicProductShowcase";
-import { SAMPLE_PRODUCTS } from "../data/sampleProducts";
 import BrandShowcase from "../component/home/BrandShowcase";
+import { getAppleProducts } from "../actions/productAction";
+import { useDispatch } from "react-redux";
 
 const HomePage = () => {
-  // Filter for Apple products for the showcase
-  const appleProducts = SAMPLE_PRODUCTS.filter(p =>
-    p.name.includes("iPhone") ||
-    p.name.includes("MacBook") ||
-    p.name.includes("AirPods") ||
-    p.name.includes("Apple") ||
-    p.name.includes("iPad")
-  );
+  const [appleProducts, setAppleProducts] = useState([]);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const fetchAppleProducts = async () => {
+      try {
+        const result = await dispatch(getAppleProducts());
+        if (result.success) {
+          setAppleProducts(result.products);
+        } else {
+          console.error("Error fetching apple products", result.error);
+        }
+      } catch (error) {
+        console.error("Error fetching apple products", error);
+      }
+    };
+    fetchAppleProducts();
+  }, [dispatch]);
+  console.log("appleProducts", appleProducts);
 
   return (
     <Layout>
@@ -41,7 +53,7 @@ const HomePage = () => {
 
       <CategoryShowcase
         title="Cameras"
-        category={CATEGORIES.CAMERAS || "Cameras"}
+        category={CATEGORIES.CAMERAS || "Camera"}
       />
 
       <DynamicProductShowcase

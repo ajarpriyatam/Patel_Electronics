@@ -5,6 +5,7 @@ import ProductCardColl from "../component/common/ProductCardColl";
 import { useSelector, useDispatch } from "react-redux";
 import { getProduct } from "../actions/productAction";
 import { getCategoryContent, normalizeCategory } from "../constants/categories";
+import videoBg from "../assets/videos/6466100-uhd_3840_2160_30fps.mp4";
 
 const Products = () => {
   const dispatch = useDispatch();
@@ -33,17 +34,26 @@ const Products = () => {
   }, [category]);
   return (
     <Layout>
-      {/* Hero Image Section - 40% of screen height */}
+      {/* Hero Video Section - 40% of screen height */}
       <div className="relative h-[40vh] w-full overflow-hidden">
-        <img
-          src={currentCategoryContent.image}
-          alt={`Kavéra ${currentCategoryContent.title}`}
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
-          <div className="text-center text-white">
-            <h1 className="text-4xl md:text-6xl font-serif font-bold mb-4">{currentCategoryContent.title}</h1>
-            <p className="text-lg md:text-xl opacity-90">{currentCategoryContent.subtitle}</p>
+        {/* YouTube Background Video */}
+        <div className="absolute inset-0 pointer-events-none">
+          <video
+            className="w-full h-full object-cover scale-150"
+            src={videoBg}
+            autoPlay
+            loop
+            muted
+            playsInline
+            style={{ pointerEvents: 'none' }}
+          />
+        </div>
+
+        {/* Overlay for text readability */}
+        <div className="absolute inset-0 bg-black/50 flex items-center justify-center z-10">
+          <div className="text-center text-white px-4">
+            <h1 className="text-4xl md:text-6xl font-serif font-bold mb-4 drop-shadow-lg" style={{ color: "white" }}>{currentCategoryContent.title}</h1>
+            <p className="text-lg md:text-xl opacity-90 drop-shadow-md">{currentCategoryContent.subtitle}</p>
           </div>
         </div>
       </div>
@@ -55,7 +65,7 @@ const Products = () => {
             <div className="flex justify-center items-center py-20">
               <div className="flex flex-col items-center gap-4">
                 <div className="w-12 h-12 border-4 border-[#D4A574] border-t-transparent rounded-full animate-spin"></div>
-                <div className="text-[#D4A574] text-lg">Loading candles...</div>
+                <div className="text-[#D4A574] text-lg">Loading Gadgets...</div>
               </div>
             </div>
           ) : error ? (
@@ -71,7 +81,7 @@ const Products = () => {
             </div>
           ) : (
             <div className="flex justify-center items-center py-20">
-              <div className="text-gray-600 text-lg">No candles found in this category</div>
+              <div className="text-gray-600 text-lg">No Gadgets found in this category</div>
             </div>
           )}
         </div>

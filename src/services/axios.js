@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const baseURL = process.env.REACT_APP_API_URL ||  "https://backend-kavera.vercel.app" ;
-console.log("azsxdcd",baseURL);
+const baseURL = process.env.REACT_APP_API_URL || "https://patel-backend.vercel.app";
+console.log("azsxdcd", baseURL);
 const axiosInstance = axios.create({
   baseURL: baseURL,
   timeout: 10000, // 10 seconds timeout
@@ -36,7 +36,7 @@ axiosInstance.interceptors.response.use(
     } else if (error.response?.status >= 500) {
       // Server error
     }
-    
+
     return Promise.reject(error);
   }
 );

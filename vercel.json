@@ -13,7 +13,7 @@
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "https://backend-kavera.vercel.app/api/$1"
+      "dest": "https://patel-backend.vercel.app/api/$1"
     },
     {
       "handle": "filesystem"
@@ -24,6 +24,6 @@
     }
   ],
   "env": {
-    "REACT_APP_API_URL": "/api/v2"
+    "REACT_APP_API_URL": "/api/v5"
   }
 }

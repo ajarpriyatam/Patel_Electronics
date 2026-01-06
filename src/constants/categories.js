@@ -2,12 +2,12 @@
 export const CATEGORIES = {
   // Main categories with consistent naming
   ALL: "all",
-  LAPTOPS: "laptops",
-  SMARTPHONES: "smartphones", 
+  LAPTOPS: "laptop",
+  SMARTPHONES: "smartphones",
   AUDIO: "audio",
   ACCESSORIES: "accessories",
   GAMING: "gaming",
-  CAMERAS: "cameras",
+  CAMERAS: "camera",
   WEARABLES: "wearables"
 };
 
@@ -70,20 +70,20 @@ export const LEGACY_CATEGORY_MAP = {
 // Helper function to normalize category names
 export const normalizeCategory = (category) => {
   if (!category) return CATEGORIES.ALL;
-  
+
   // Check if it's already a valid category
   if (Object.values(CATEGORIES).includes(category)) {
     return category;
   }
-  
+
   // Check legacy mapping
   if (LEGACY_CATEGORY_MAP[category]) {
     return LEGACY_CATEGORY_MAP[category];
   }
-  
+
   // Log unmapped categories for debugging
   console.log(`Unmapped category: "${category}" - defaulting to "all"`);
-  
+
   // Default to all if not found
   return CATEGORIES.ALL;
 };

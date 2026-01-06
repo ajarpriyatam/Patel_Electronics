@@ -5,7 +5,6 @@ import Layout from "../layouts/Layout";
 import { useSelector, useDispatch } from "react-redux";
 import { getProductDetails } from "../actions/productAction";
 import { useCart } from "../context/cart";
-import { RICH_SAMPLE_PRODUCT } from "../data/sampleProducts";
 import toast from "react-hot-toast";
 import { FaShoppingCart, FaShoppingBag, FaHeart, FaShareAlt, FaShieldAlt, FaUndo, FaTruck, FaCheckCircle, FaStar, FaMapMarkerAlt } from "react-icons/fa";
 
@@ -20,8 +19,8 @@ const ProductDetails = () => {
   const { addToCart } = cartData[2];
   const { product, loading, error } = useSelector((state) => state.productDetails.product);
 
-  // Use Rich Sample Product if Redux product is missing or empty (Development Fallback)
-  const displayProduct = (product && Object.keys(product).length > 0) ? product : RICH_SAMPLE_PRODUCT;
+  // Use product from Redux state
+  const displayProduct = product;
 
   useEffect(() => {
     dispatch(getProductDetails(id));

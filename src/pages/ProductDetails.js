@@ -179,7 +179,7 @@ const ProductDetails = () => {
 
                 <div className="mb-4">
                   <span className="text-sm font-medium text-gray-600">Brand : </span>
-                  <span className="text-sm font-bold text-gray-900 uppercase">{product.category || "General"}</span>
+                  <span className="text-sm font-bold text-gray-900 uppercase">{product.brand || "General"}</span>
                 </div>
 
                 <div className="py-2 my-1">
@@ -273,28 +273,23 @@ const ProductDetails = () => {
               <h3 className="text-lg font-bold text-gray-800 mb-4 border-b pb-2 uppercase">Product Specifications</h3>
               <div className="border rounded-sm overflow-hidden text-sm">
 
+                {/* Static / Standard Fields */}
                 <div className="flex border-b bg-gray-50">
                   <div className="w-1/3 p-3 font-semibold text-gray-700 border-r">Condition</div>
                   <div className="w-2/3 p-3 text-gray-800">New</div>
                 </div>
                 <div className="flex border-b">
-                  <div className="w-1/3 p-3 font-semibold text-gray-700 border-r">Asin</div>
-                  <div className="w-2/3 p-3 text-gray-800">{product.tokenId || product._id?.substring(0, 8).toUpperCase()}</div>
-                </div>
-                <div className="flex border-b bg-gray-50">
-                  <div className="w-1/3 p-3 font-semibold text-gray-700 border-r">Category</div>
-                  <div className="w-2/3 p-3 text-gray-800">{product.category}</div>
-                </div>
-                {/* Add more fake rows to match image density */}
-                <div className="flex border-b">
-                  <div className="w-1/3 p-3 font-semibold text-gray-700 border-r">Origin</div>
-                  <div className="w-2/3 p-3 text-gray-800">India</div>
-                </div>
-                <div className="flex border-b bg-gray-50">
-                  <div className="w-1/3 p-3 font-semibold text-gray-700 border-r">Brandname</div>
-                  <div className="w-2/3 p-3 text-gray-800">{product.category || "Generic"}</div>
+                  <div className="w-1/3 p-3 font-semibold text-gray-700 border-r">Brand</div>
+                  <div className="w-2/3 p-3 text-gray-800">{product.brand || product.category || "Generic"}</div>
                 </div>
 
+                {/* Dynamic Specifications */}
+                {product.product_specifications && Object.entries(product.product_specifications).map(([key, value], index) => (
+                  <div key={key} className={`flex border-b ${index % 2 === 0 ? 'bg-gray-50' : ''}`}>
+                    <div className="w-1/3 p-3 font-semibold text-gray-700 border-r capitalize">{key.replace(/_/g, ' ')}</div>
+                    <div className="w-2/3 p-3 text-gray-800">{value}</div>
+                  </div>
+                ))}
               </div>
             </div>
 
@@ -302,20 +297,28 @@ const ProductDetails = () => {
             <div className="mb-8">
               <h3 className="text-lg font-bold text-gray-800 mb-4 border-b pb-2 uppercase">PRODUCT DETAILS</h3>
               <div className="space-y-2 text-sm text-gray-700">
-                <p className="flex items-start gap-2"><FaCheckCircle className="mt-0.5 text-gray-800" size={12} /> Type: High Quality Electronics Component</p>
-                <p className="flex items-start gap-2"><FaCheckCircle className="mt-0.5 text-gray-800" size={12} /> Suitable for: Industrial & Home Use</p>
-                <p className="flex items-start gap-2"><FaCheckCircle className="mt-0.5 text-gray-800" size={12} /> Quality: Premium Grade</p>
-                <p className="flex items-start gap-2"><FaCheckCircle className="mt-0.5 text-gray-800" size={12} /> Quantity - 10 Sets</p>
+                {product.product_details ? (
+                  product.product_details.split('\n').map((line, index) => (
+                    line.trim() && (
+                      <p key={index} className="flex items-start gap-2">
+                        <FaCheckCircle className="mt-0.5 text-gray-800 flex-shrink-0" size={12} />
+                        {line}
+                      </p>
+                    )
+                  ))
+                ) : (
+                  <p className="text-gray-500 italic">No additional details available.</p>
+                )}
               </div>
             </div>
 
             {/* PRODUCT DESCRIPTION */}
             <div>
               <h3 className="text-lg font-bold text-gray-800 mb-4 border-b pb-2 uppercase">PRODUCT DESCRIPTION</h3>
-              <div className="space-y-2 text-sm text-gray-700">
+              <div className="space-y-2 text-sm text-gray-700 whitespace-pre-line">
                 <p className="flex items-start gap-2">
-                  <FaCheckCircle className="mt-0.5 text-gray-800" size={12} />
-                  {product.description || "Type: Keystone Jack + Gang Box + Single Socket Face Plate Suitable for : CAT6 / CAT6E Color - Off White / White / Ivory"}
+                  {/* <FaCheckCircle className="mt-0.5 text-gray-800 flex-shrink-0" size={12} /> */}
+                  {product.product_description || product.description || "No description available."}
                 </p>
               </div>
             </div>

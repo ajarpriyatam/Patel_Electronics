@@ -47,8 +47,8 @@ const CartPage = () => {
   };
 
   return (
-    <Layout>
-      <div className="min-h-screen bg-gradient-to-b from-beige via-[#FFF8F3] to-beige py-8 mt-[100px]">
+    <Layout className="bg-white">
+      <div className="min-h-screen py-8 mt-[100px]">
         <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
           <div className="mb-8 mt-8">
@@ -81,7 +81,7 @@ const CartPage = () => {
           )}
 
           {cart.length === 0 ? (
-            <div className="bg-beige rounded-2xl p-12 sm:p-16 shadow-2xl text-center border-2 border-gray-200">
+            <div className="bg-white rounded-2xl p-12 sm:p-16 shadow-2xl text-center border-2 border-gray-200">
               <div className="max-w-md mx-auto">
                 <div className="mb-6 inline-block p-6 bg-[#D4A574]/10 rounded-full">
                   <FaShoppingCart className="text-6xl text-[#D4A574]" />
@@ -92,7 +92,7 @@ const CartPage = () => {
                 </p>
                 <button
                   onClick={() => navigate("/")}
-                  className="bg-gradient-to-r from-[#D4A574] to-[#C08860] text-beige py-4 px-8 rounded-xl hover:opacity-90 transition-all duration-300 font-semibold text-lg shadow-lg hover:shadow-[#D4A574]/50 transform hover:scale-105"
+                  className="bg-gradient-to-r from-[#D4A574] to-[#C08860] text-white py-4 px-8 rounded-xl hover:opacity-90 transition-all duration-300 font-semibold text-lg shadow-lg hover:shadow-[#D4A574]/50 transform hover:scale-105"
                 >
                   Start Shopping
                 </button>
@@ -105,12 +105,12 @@ const CartPage = () => {
                 {cart.map((item, index) => (
                   <div
                     key={item.id}
-                    className="bg-beige rounded-2xl shadow-xl overflow-hidden border-2 border-gray-200 hover:border-[#D4A574]/50 transition-all duration-300 transform hover:scale-[1.02] relative"
+                    className="bg-white rounded-2xl shadow-xl overflow-hidden border-2 border-gray-200 hover:border-[#D4A574]/50 transition-all duration-300 transform hover:scale-[1.02] relative"
                     style={{ animationDelay: `${index * 0.1}s` }}
                   >
                     {/* Token ID Badge */}
                     <div className="absolute top-4 left-4 z-10">
-                      <div className="bg-[#D4A574] text-beige font-bold text-xs px-3 py-1 rounded-br-lg rounded-tl-lg shadow-lg">
+                      <div className="bg-[#D4A574] text-white font-bold text-xs px-3 py-1 rounded-br-lg rounded-tl-lg shadow-lg">
                         #{item.isCustomization ? item.tokenId + '*' : item.tokenId}
                       </div>
                     </div>
@@ -123,7 +123,7 @@ const CartPage = () => {
                             alt={item.name}
                             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                           />
-                          <div className="absolute inset-0 bg-gradient-to-t from-beige/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                          <div className="absolute inset-0 bg-gradient-to-t from-white/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                         </div>
                       </div>
 
@@ -184,17 +184,17 @@ const CartPage = () => {
                               <button
                                 onClick={() => updateQuantity(item.id, item.selectedScent, item.quantity - 1)}
                                 className={`px-4 py-2 text-gray-700 transition-colors duration-200 ${item.quantity > MINIMUM_ORDER_QUANTITY
-                                  ? "hover:bg-[#D4A574] hover:text-beige"
+                                  ? "hover:bg-[#D4A574] hover:text-white"
                                   : "cursor-not-allowed opacity-50"
                                   }`}
                                 disabled={item.quantity <= MINIMUM_ORDER_QUANTITY}
                               >
                                 <FaMinus className="text-sm" />
                               </button>
-                              <span className="px-6 py-2 text-gray-800 font-bold bg-beige">{item.quantity}</span>
+                              <span className="px-6 py-2 text-gray-800 font-bold bg-white">{item.quantity}</span>
                               <button
                                 onClick={() => updateQuantity(item.id, item.selectedScent, item.quantity + 1)}
-                                className="px-4 py-2 hover:bg-[#D4A574] hover:text-beige text-gray-700 transition-colors duration-200"
+                                className="px-4 py-2 hover:bg-[#D4A574] hover:text-white text-gray-700 transition-colors duration-200"
                               >
                                 <FaPlus className="text-sm" />
                               </button>
@@ -219,7 +219,7 @@ const CartPage = () => {
                 {/* Continue Shopping Button */}
                 <button
                   onClick={() => navigate("/")}
-                  className="w-full bg-beige hover:bg-gray-50 text-gray-800 py-4 rounded-xl transition-all duration-300 font-semibold border-2 border-gray-200 hover:border-[#D4A574]"
+                  className="w-full bg-white hover:bg-gray-50 text-gray-800 py-4 rounded-xl transition-all duration-300 font-semibold border-2 border-gray-200 hover:border-[#D4A574]"
                 >
                   ← Continue Shopping
                 </button>
@@ -227,7 +227,7 @@ const CartPage = () => {
 
               {/* Order Summary */}
               <div className="lg:w-1/3">
-                <div className="bg-beige rounded-2xl shadow-2xl p-6 sticky top-24 border-2 border-gray-200">
+                <div className="bg-white rounded-2xl shadow-2xl p-6 sticky top-24 border-2 border-gray-200">
                   <h2 className="text-2xl font-bold mb-6 bg-gradient-to-r from-[#D4A574] to-[#C08860] bg-clip-text text-transparent">
                     Order Summary
                   </h2>
@@ -266,7 +266,7 @@ const CartPage = () => {
                   {/* Checkout Button */}
                   <button
                     onClick={() => navigate("/checkout")}
-                    className="w-full bg-gradient-to-r from-[#D4A574] to-[#C08860] text-beige rounded-xl py-4 font-bold text-lg hover:opacity-90 transition-all duration-300 shadow-lg hover:shadow-[#D4A574]/50 transform hover:scale-105 mb-4"
+                    className="w-full bg-gradient-to-r from-[#D4A574] to-[#C08860] text-white rounded-xl py-4 font-bold text-lg hover:opacity-90 transition-all duration-300 shadow-lg hover:shadow-[#D4A574]/50 transform hover:scale-105 mb-4"
                   >
                     Proceed to Checkout
                   </button>

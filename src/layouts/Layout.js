@@ -2,9 +2,9 @@ import React from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 
-const Layout = ({ children }) => {
+const Layout = ({ children, className }) => {
   return (
-    <div className="flex flex-col min-h-screen bg-background">
+    <div className={`flex flex-col min-h-screen ${className || 'bg-background'}`}>
       <Navbar />
       <main className="flex-grow">{children}</main>
       <Footer />

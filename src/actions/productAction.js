@@ -103,16 +103,19 @@ export const createProduct = (productData) => async (dispatch) => {
     const config = {
       headers: { "Content-Type": "application/json" },
     };
+    console.log("azsxdcd productData", productData);
     const { data } = await axios.post(
       `/api/v5/admin/product/new`,
       productData,
       config
     );
+    console.log("azsxdcd data", data);
     dispatch({
       type: NEW_PRODUCT_SUCCESS,
       payload: data,
     });
   } catch (error) {
+    console.log("azsxdcd error", error);
     dispatch({
       type: NEW_PRODUCT_FAIL,
       payload: error.response.data.message,
@@ -209,7 +212,7 @@ export const getNewArrivals = () => async (dispatch) => {
     dispatch({
       type: NEW_ARRIVALS_SUCCESS,
       payload: {
-        products: data.products,
+        products: data.newArrivals,
         productsCount: data.productsCount,
       }
     });

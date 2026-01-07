@@ -58,7 +58,7 @@ const Products = () => {
         </div>
       </div>
 
-      <div className="my-[20px] mx-auto w-[80%] gap-4 h-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 bg-beige">
+      <div className="my-[20px] mx-auto w-[95%] md:w-[80%] gap-3 md:gap-6 h-full grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 bg-beige">
 
         <div className="mt-[60px] mb-[60px] col-span-full">
           {loading ? (
@@ -73,7 +73,7 @@ const Products = () => {
               <div className="text-[#BC2727] text-lg">Error: {error}</div>
             </div>
           ) : products && products.length > 0 ? (
-            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6">
               {products.map((product, index) => {
                 console.log("Product data for ProductCard:", product);
                 return <ProductCardColl key={product._id || index} {...product} />

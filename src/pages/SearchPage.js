@@ -33,7 +33,7 @@ const SearchPage = () => {
 
     return (
         <Layout>
-            <div className="min-h-[60vh] bg-beige pt-20 pb-10 px-4 md:px-8">
+            <div className="min-h-[60vh] bg-white pt-20 pb-10 px-4 md:px-8">
                 <div className="max-w-7xl mx-auto">
                     <div className="mb-8">
                         <h1 className="text-3xl font-serif font-bold text-gray-900 mb-2">

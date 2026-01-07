@@ -111,8 +111,8 @@ const NewArrivals = () => {
         {/* Overlay for text readability */}
         <div className="absolute inset-0 bg-black/40 flex items-center justify-center z-10">
           <div className="text-center text-white px-4">
-            <h1 className="text-4xl md:text-6xl font-serif font-bold mb-4 drop-shadow-xl tracking-wide">New Arrivals</h1>
-            <p className="text-lg md:text-xl font-light tracking-wider opacity-90 drop-shadow-md">Discover our latest Electronics Gadgets</p>
+            <h1 className="text-4xl md:text-6xl font-serif font-light mb-4 drop-shadow-xl tracking-wider text-white" style={{ color: 'white' }}>New Arrivals</h1>
+            <p className="text-lg md:text-xl font-light tracking-wider text-gray-100 drop-shadow-md">Discover our latest Electronics Gadgets</p>
           </div>
         </div>
       </div>

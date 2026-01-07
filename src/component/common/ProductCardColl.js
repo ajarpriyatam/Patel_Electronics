@@ -14,7 +14,7 @@ const ProductCardColl = ({ _id, name, price, productImageGallery = [], category 
           If user wants it back, they can ask. Text said "like this image". */}
 
       {/* Image Section */}
-      <div className="h-[200px] w-full p-4 flex items-center justify-center relative">
+      <div className="h-[140px] md:h-[200px] w-full p-2 md:p-4 flex items-center justify-center relative">
         <img
           src={productImageGallery[0]?.url}
           alt={name}
@@ -23,32 +23,32 @@ const ProductCardColl = ({ _id, name, price, productImageGallery = [], category 
       </div>
 
       {/* Content Section */}
-      <div className="p-4 flex flex-col flex-grow text-left">
+      <div className="p-2 md:p-4 flex flex-col flex-grow text-left">
 
         {/* Price */}
         <div className="mb-1">
-          <span className="text-xl font-medium text-[#0099ff]">
+          <span className="text-base md:text-xl font-medium text-[#0099ff]">
             ₹ {price.toLocaleString()}
           </span>
         </div>
 
         {/* Category / Brand */}
         <div className="mb-1">
-          <span className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
+          <span className="text-[10px] md:text-xs font-semibold text-gray-500 uppercase tracking-wide">
             {category || "Category"}
           </span>
         </div>
 
         {/* Title */}
-        <div className="mb-4 flex-grow">
-          <h3 className="text-sm font-bold text-gray-800 leading-snug line-clamp-3">
+        <div className="mb-2 md:mb-4 flex-grow">
+          <h3 className="text-xs md:text-sm font-bold text-gray-800 leading-snug line-clamp-2 md:line-clamp-3">
             {name}
           </h3>
         </div>
 
         {/* Add to Cart Button */}
         <button
-          className="w-full py-2.5 bg-[#0088ff] hover:bg-[#0077e6] text-white font-medium text-sm rounded transition-colors mt-auto"
+          className="w-full py-2 md:py-2.5 bg-[#0088ff] hover:bg-[#0077e6] text-white font-medium text-xs md:text-sm rounded transition-colors mt-auto"
           onClick={(e) => {
             e.stopPropagation();
             // Add to cart logic here or navigate

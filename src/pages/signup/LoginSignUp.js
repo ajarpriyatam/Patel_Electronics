@@ -23,7 +23,8 @@ const LoginSignUp = () => {
   const [newUser, setNewUser] = useState({
     name: "",
     gender: "",
-    inviteCode: "",
+    email: "",
+    mobile: "",
   });
 
   const [otp, setOtp] = useState("");
@@ -55,10 +56,6 @@ const LoginSignUp = () => {
       }
       // If validation passes, move to step 2
       setStep(2);
-      // Pre-fill email if loginId looks like an email
-      if (existingUser.loginId.includes('@')) {
-        setNewUser(prev => ({ ...prev, email: existingUser.loginId }));
-      }
     },
     [existingUser, validateFields]
   );
@@ -223,13 +220,23 @@ const LoginSignUp = () => {
                       onChange={handleNewUserChange}
                     />
 
-                    <LoginInputField
-                      placeholder="Email"
-                      onKeyDown={handleKeyDown}
-                      id="email"
-                      value={newUser.email}
-                      onChange={handleNewUserChange}
-                    />
+                    {existingUser.loginId.includes('@') ? (
+                      <LoginInputField
+                        placeholder="Mobile Number"
+                        onKeyDown={handleKeyDown}
+                        id="mobile"
+                        value={newUser.mobile} // Assuming you add mobile to newUser state
+                        onChange={handleNewUserChange}
+                      />
+                    ) : (
+                      <LoginInputField
+                        placeholder="Email"
+                        onKeyDown={handleKeyDown}
+                        id="email"
+                        value={newUser.email}
+                        onChange={handleNewUserChange}
+                      />
+                    )}
 
                     <div className="terms-checkbox">
                       <input type="checkbox" id="terms" required />

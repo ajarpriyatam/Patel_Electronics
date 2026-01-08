@@ -145,6 +145,22 @@ const DrawerList = ({ activeNavItem, onClose }) => {
               </span>
             </Link>
           </li>
+          <li>
+            <Link
+              to="/account"
+              onClick={onClose}
+              className="flex items-center cursor-pointer group"
+            >
+              <span
+                className={`text-[18px] font-medium leading-[22.5px] transition-colors duration-300 ${location.pathname === "/account"
+                  ? "text-[#D4A574]"
+                  : "text-gray-600 group-hover:text-[#D4A574]"
+                  }`}
+              >
+                Login / Account
+              </span>
+            </Link>
+          </li>
         </ul>
       </div>
     </div>

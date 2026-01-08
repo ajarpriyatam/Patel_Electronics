@@ -3,7 +3,7 @@ import Logo from "../component/common/Logo";
 import { Drawer, ThemeProvider, createTheme } from "@mui/material";
 import DrawerList from "./DrawerList";
 import { HiOutlineBars2 } from "react-icons/hi2";
-import { FaShoppingCart, FaSearch } from "react-icons/fa";
+import { FaShoppingCart, FaSearch, FaUser } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "../context/cart";
 import useCategory from "../hooks/useCategory";
@@ -214,6 +214,9 @@ const Navbar = () => {
               <FaSearch className="h-5 w-5" />
             </button>
           </div>
+          <Link to={"/account"} className="p-1 text-gray-700 hover:text-[#D4A574] transition-colors duration-300">
+            <FaUser className="h-5 w-5" />
+          </Link>
           <Link to={"/cart"} className="relative p-1 text-gray-700 hover:text-[#D4A574] transition-colors duration-300">
             <FaShoppingCart className="h-6 w-6" />
             {cartItemsCount > 0 && (

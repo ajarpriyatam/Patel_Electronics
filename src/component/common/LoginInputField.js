@@ -9,11 +9,11 @@ const LoginInputField = (props) => {
   };
 
   return (
-    <div className="relative h-[50px]">
+    <div className="relative h-[55px] w-full group">
       {props.leading && (
         <div
-          className="leading-[10px] absolute top-1/2 transform -translate-y-1/2 text-[#9e9e9e] text-[16px] left-[10px] 
-        w-7 h-7 flex items-center justify-center"
+          className="absolute top-1/2 transform -translate-y-1/2 text-[#999999] text-[18px] left-[16px] 
+        w-6 h-6 flex items-center justify-center pointer-events-none transition-colors duration-300 group-focus-within:text-[#D4A574]"
         >
           {props.leading}
         </div>
@@ -21,11 +21,10 @@ const LoginInputField = (props) => {
       <input
         type={isPasswordVisible ? "text" : props.type}
         placeholder={props.placeholder}
-        className="h-full rounded-[4px] pl-[50px] p-[10px] text-[#333333] outline-none !border-none w-full focus:border-primary focus:ring-1 focus:ring-primary placeholder:text-[#9e9e9e] placeholder:text-[1rem] placeholder:font-serif"
+        className="login-input h-full w-full outline-none placeholder:text-[#999999] placeholder:font-normal"
         onKeyDown={props.onKeyDown}
         style={{
-          letterSpacing: "2px",
-          backgroundColor: "#f5f5f5",
+          letterSpacing: "0.5px",
         }}
         id={props.id}
         value={props.value}
@@ -33,13 +32,13 @@ const LoginInputField = (props) => {
       />
       {props.type === "password" && (
         <div
-          className="absolute right-[10px] top-1/2 transform -translate-y-1/2 cursor-pointer "
+          className="absolute right-[16px] top-1/2 transform -translate-y-1/2 cursor-pointer p-2 hover:bg-gray-100 rounded-full transition-colors text-[#999999] hover:text-[#555555]"
           onClick={togglePasswordVisibility}
         >
           {isPasswordVisible ? (
-            <IoMdEye size={16} color="#333333" opacity={0.6} />
+            <IoMdEye size={20} />
           ) : (
-            <IoMdEyeOff size={16} color="#333333" opacity={0.6} />
+            <IoMdEyeOff size={20} />
           )}
         </div>
       )}
